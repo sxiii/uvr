@@ -13,11 +13,10 @@ def get_screen_height():
     return monitors[0].height, monitors[0].width
 
 def scale_values(value):
-    if not SCALE_WIN_SIZE == 1920:
-        ratio = SCALE_WIN_SIZE/1920  # Approx. 1.3333 for 2K
-        return value * ratio
-    else:
+    if SCALE_WIN_SIZE == 1920:
         return value
+    ratio = SCALE_WIN_SIZE/1920  # Approx. 1.3333 for 2K
+    return value * ratio
 
 SCREEN_HIGHT, SCREEN_WIDTH = get_screen_height()
 SCALE_WIN_SIZE = 1920
