@@ -12,7 +12,7 @@ class STFT:
 
     def __call__(self, x):
         
-        x_is_mps = not x.device.type in ["cuda", "cpu"]
+        x_is_mps = x.device.type not in ["cuda", "cpu"]
         if x_is_mps:
             x = x.cpu()
 
@@ -31,7 +31,7 @@ class STFT:
 
     def inverse(self, x):
         
-        x_is_mps = not x.device.type in ["cuda", "cpu"]
+        x_is_mps = x.device.type not in ["cuda", "cpu"]
         if x_is_mps:
             x = x.cpu()
 
@@ -110,7 +110,7 @@ class TFC_TDF(nn.Module):
         super().__init__()
 
         self.blocks = nn.ModuleList()
-        for i in range(l):
+        for _ in range(l):
             block = nn.Module()
 
             block.tfc1 = nn.Sequential(
@@ -170,7 +170,7 @@ class TFC_TDF_net(nn.Module):
         self.first_conv = nn.Conv2d(dim_c, c, 1, 1, 0, bias=False)
 
         self.encoder_blocks = nn.ModuleList()
-        for i in range(n):
+        for _ in range(n):
             block = nn.Module()
             block.tfc_tdf = TFC_TDF(c, c, l, f, bn, norm, act)
             block.downscale = Downscale(c, c + g, scale, norm, act)
@@ -181,7 +181,7 @@ class TFC_TDF_net(nn.Module):
         self.bottleneck_block = TFC_TDF(c, c, l, f, bn, norm, act)
 
         self.decoder_blocks = nn.ModuleList()
-        for i in range(n):
+        for _ in range(n):
             block = nn.Module()
             block.upscale = Upscale(c, c - g, scale, norm, act)
             f = f * scale[1]

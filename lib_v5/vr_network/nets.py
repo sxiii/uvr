@@ -51,7 +51,7 @@ def determine_model_capacity(n_fft_bins, nn_architecture):
     sp_model_arch = [31191, 33966, 129605]
     hp_model_arch = [123821, 123812]
     hp2_model_arch = [537238, 537227]
-    
+
     if nn_architecture in sp_model_arch:
         model_capacity_data = [
             (2, 16),
@@ -64,7 +64,7 @@ def determine_model_capacity(n_fft_bins, nn_architecture):
             (16, 2, 1),
             (16, 2, 1),
         ]
-    
+
     if nn_architecture in hp_model_arch:
         model_capacity_data = [
             (2, 32),
@@ -77,7 +77,7 @@ def determine_model_capacity(n_fft_bins, nn_architecture):
             (32, 2, 1),
             (32, 2, 1),
         ]
-       
+
     if nn_architecture in hp2_model_arch: 
         model_capacity_data = [
             (2, 64),
@@ -92,9 +92,7 @@ def determine_model_capacity(n_fft_bins, nn_architecture):
         ]
 
     cascaded = CascadedASPPNet
-    model = cascaded(n_fft_bins, model_capacity_data, nn_architecture)
-    
-    return model
+    return cascaded(n_fft_bins, model_capacity_data, nn_architecture)
 
 class CascadedASPPNet(nn.Module):
 
